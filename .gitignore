@@ -1,3 +1,10 @@
-# Godot 4+ specific ignores
+# Godot-specific ignores
+.import/
+*.import
 .godot/
-/android/
+mono_res/
+.mono/
+
+# OS-specific
+.DS_Store
+Thumbs.db
