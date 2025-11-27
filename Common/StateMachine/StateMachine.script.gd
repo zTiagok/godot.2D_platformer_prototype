@@ -7,6 +7,9 @@ var currentState : State
 var stateList : Dictionary[String, State] = {}
 
 
+signal SignalStateChanged(state: State)
+
+
 func _ready() -> void:
   # Percorre todos os filhos do StateMachine
   for state : State in get_children():
@@ -52,3 +55,6 @@ func ChangeState(newStateName: String) -> void:
 
     # Acessa a entidade e pede para trocar a animação do estado atual.
     currentState.entity.ChangeAnimation(newStateName)
+
+    # Emite um sinal para quando o state for alterado
+    SignalStateChanged.emit(stateList[newStateName])

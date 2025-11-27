@@ -17,6 +17,3 @@ func PhysicsUpdate(_delta) -> void:
 	else:
 		# Caso não aperte nada, volte para o "Idle" state.
 		stateMachine.ChangeState("Idle")
-
-	# Ativa a física.
-	player.move_and_slide()

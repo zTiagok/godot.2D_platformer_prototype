@@ -1,3 +1,4 @@
+@icon("res://Common/StateMachine/Icons/spark-hollow-white.png")
 class_name State extends Node
 
 var stateMachine: StateMachine

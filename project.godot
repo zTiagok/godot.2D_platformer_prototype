@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-LocalGameManager="*res://Global/GameManager.global.gd"
+LocalGameManager="*res://Global/LocalGameManager.global.gd"
 
 [display]
 

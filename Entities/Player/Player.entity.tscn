@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://e4jec4nxvp"]
+[gd_scene load_steps=14 format=3 uid="uid://e4jec4nxvp"]
 
 [ext_resource type="Texture2D" uid="uid://bf6ieodc0ox8e" path="res://Entities/Player/Sprites/Player Idle.png" id="1_j60su"]
 [ext_resource type="Script" uid="uid://c0snpkeo8hipm" path="res://Entities/Player/Player.script.gd" id="1_l7pnr"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://ura5o2vijm3j" path="res://Common/StateMachine/StateMachine.script.gd" id="5_c3sfg"]
 [ext_resource type="Script" uid="uid://bklgeqpliery" path="res://Entities/Player/States/Idle.script.gd" id="6_0p5nl"]
 [ext_resource type="Script" uid="uid://1mvsrcucqgmn" path="res://Entities/Player/States/Walk.script.gd" id="7_xqd75"]
+[ext_resource type="PackedScene" uid="uid://cyuh4ujowxdpt" path="res://Common/Debug/DebugEntity.debug.tscn" id="8_rt0of"]
 
 [sub_resource type="Animation" id="Animation_gqoey"]
 resource_name = "Idle"
@@ -151,6 +152,8 @@ libraries = {
 }
 autoplay = "Idle"
 
+[node name="Camera2D" type="Camera2D" parent="."]
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -8)
 texture = ExtResource("1_j60su")
@@ -172,3 +175,7 @@ metadata/_custom_type_script = "uid://dvrnpg6dthq2s"
 [node name="Walk" type="Node" parent="StateMachine"]
 script = ExtResource("7_xqd75")
 metadata/_custom_type_script = "uid://dvrnpg6dthq2s"
+
+[node name="DebugEntity" parent="." instance=ExtResource("8_rt0of")]
+z_index = 10
+z_as_relative = false
