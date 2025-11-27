@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=2 format=3 uid="uid://skdnkod7sfam"]
+
+[ext_resource type="Script" uid="uid://cjwctdrowp6ti" path="res://Common/Resources/EntityResource.common.gd" id="1_1hjgv"]
+
+[resource]
+script = ExtResource("1_1hjgv")
+maxHealth = 5.0
+currentDamage = 1.0
+movementSpeed = 100.0
+knockbackForce = 25.0
+metadata/_custom_type_script = "uid://cjwctdrowp6ti"
