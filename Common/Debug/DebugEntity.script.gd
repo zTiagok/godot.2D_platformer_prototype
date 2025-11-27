@@ -16,4 +16,5 @@ func _ready() -> void:
 
 
 func OnStateChanged(newState: State) -> void:
+	print(newState)
 	stateLabel.text = "State: %s" % newState.name

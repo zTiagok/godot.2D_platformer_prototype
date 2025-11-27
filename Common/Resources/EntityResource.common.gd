@@ -10,6 +10,7 @@ class_name EntityResource extends Resource
 var currentHealth : float
 var isInvulnerable : bool
 var isFalling : bool = false
+var isJumping : bool = false
 var animationPlayer : AnimationPlayer
 
 

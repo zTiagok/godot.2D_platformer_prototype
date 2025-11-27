@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://e4jec4nxvp"]
+[gd_scene load_steps=20 format=3 uid="uid://e4jec4nxvp"]
 
 [ext_resource type="Texture2D" uid="uid://bf6ieodc0ox8e" path="res://Entities/Player/Sprites/Player Idle.png" id="1_j60su"]
 [ext_resource type="Script" uid="uid://c0snpkeo8hipm" path="res://Entities/Player/Player.script.gd" id="1_l7pnr"]
@@ -9,12 +9,13 @@
 [ext_resource type="Script" uid="uid://baw7grbw8htpm" path="res://Entities/Player/States/Fall.script.gd" id="7_ia10a"]
 [ext_resource type="Script" uid="uid://1mvsrcucqgmn" path="res://Entities/Player/States/Walk.script.gd" id="7_xqd75"]
 [ext_resource type="PackedScene" uid="uid://cyuh4ujowxdpt" path="res://Common/Debug/DebugEntity.debug.tscn" id="8_rt0of"]
+[ext_resource type="Script" uid="uid://blnq2hq37kj3r" path="res://Entities/Player/States/Jump.script.gd" id="8_yea4m"]
 [ext_resource type="Texture2D" uid="uid://cjsiwdtnufs4b" path="res://Entities/Player/Sprites/Player Jump Up.png" id="9_3auna"]
 [ext_resource type="Texture2D" uid="uid://dn0i2xkrgn4eu" path="res://Entities/Player/Sprites/Player Jump Down.png" id="9_uyy4i"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c3sfg"]
-radius = 1.0
-height = 6.0
+radius = 4.0
+height = 12.0
 
 [sub_resource type="Animation" id="Animation_gqoey"]
 resource_name = "Idle"
@@ -241,8 +242,7 @@ hframes = 4
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -1)
-rotation = -1.5707964
+position = Vector2(-1, -6)
 shape = SubResource("CapsuleShape2D_c3sfg")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
@@ -259,6 +259,10 @@ metadata/_custom_type_script = "uid://dvrnpg6dthq2s"
 
 [node name="Fall" type="Node" parent="StateMachine"]
 script = ExtResource("7_ia10a")
+metadata/_custom_type_script = "uid://dvrnpg6dthq2s"
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("8_yea4m")
 metadata/_custom_type_script = "uid://dvrnpg6dthq2s"
 
 [node name="DebugEntity" parent="." instance=ExtResource("8_rt0of")]

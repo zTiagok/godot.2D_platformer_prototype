@@ -20,6 +20,9 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
+	# Aplica gravidade.
+	velocity.y -= LocalGameManager.gravity * _delta
+
 	# Ativa a física.
 	move_and_slide()
 
