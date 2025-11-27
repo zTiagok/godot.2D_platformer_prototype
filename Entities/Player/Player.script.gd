@@ -1,4 +1,4 @@
-@icon("res://Entities/Player/Icons/person-blue.png")
+@icon("res://Entities/Player/Icons/person-blue.svg")
 class_name Player extends CharacterBody2D
 
 @onready var sprite: Sprite2D = $Sprite2D
@@ -19,14 +19,7 @@ func _process(_delta: float) -> void:
 	direction = Vector2(Input.get_axis("left", "right"), Input.get_axis("up", "down"))
 
 
-func _physics_process(delta: float) -> void:
-	# Ativa a gravidade no Player.
-	if !is_on_floor():
-		velocity.y -= LocalGameManager.gravity * delta
-	
-	# Caso não esteja encostando no chão, altera o valor da variável para verdadeiro.
-	entity.isFalling = !is_on_floor()
-
+func _physics_process(_delta: float) -> void:
 	# Ativa a física.
 	move_and_slide()
 

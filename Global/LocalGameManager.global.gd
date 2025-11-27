@@ -1,4 +1,4 @@
 class_name GameManager extends Node
 
-var gravity: float = -200
+var gravity: float = -300
 var player: Player

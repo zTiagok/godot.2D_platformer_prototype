@@ -1,4 +1,4 @@
-class_name PlayerIdleState extends State
+extends State
 
 var player : Player
 
@@ -6,7 +6,10 @@ func Enter() -> void:
 	player = entity
 
 
-func Update(_delta) -> void:
+func PhysicsUpdate(_delta) -> void:
+	if !player.is_on_floor():
+		stateMachine.ChangeState("Fall")
+
 	if player.direction.x != 0:
 		# Caso o player se movimente, troque o estado para "Walk".
 		stateMachine.ChangeState("Walk")
