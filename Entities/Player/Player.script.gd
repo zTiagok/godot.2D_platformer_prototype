@@ -63,6 +63,19 @@ func MonitoreWallSlide(_delta: float):
 			wallSlideTimer = 0.3
 
 
+# Função utilizada para saber de qual lado da parede o Player está encostado.
+func DetectWallSide() -> Vector2:
+	var currentCollision : KinematicCollision2D
+
+	# Percorre todas as colisões do Player.
+	for collision in get_slide_collision_count():
+		# Pega a primeira colisão detectada no Player.
+		currentCollision = get_slide_collision(collision)
+
+	# Retorna o vetor do lado no qual está sendo encostado.
+	return currentCollision.get_normal()
+
+
 func ChangeDirection() -> void:
 	# Altera a direção do sprite dependendo da direção do player.
 	if direction.x > 0:
