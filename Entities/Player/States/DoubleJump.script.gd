@@ -4,7 +4,7 @@ var player : Player
 
 func Enter() -> void:
   player = entity
-  player.entity.isJumping = true
+  player.isJumping = true
 
   # Diminui a quantidade de pulos utilizados.
   player.jumpsQuantity -= 1
@@ -21,6 +21,11 @@ func Update(_delta) -> void:
   if player.velocity.y >= 0:
     stateMachine.ChangeState("Fall")
 
+  # Caso o player esteja encostando na parede.
+  if player.is_on_wall() && player.canWallSlide:
+    stateMachine.ChangeState("WallSlide")
+    
+
 func PhysicsUpdate(_delta) -> void:
   # Calcula a movimentação na horizontal.
   if player.direction.x != 0:
@@ -32,4 +37,4 @@ func PhysicsUpdate(_delta) -> void:
 
 
 func Exit() -> void:
-  player.entity.isJumping = false
+  player.isJumping = false

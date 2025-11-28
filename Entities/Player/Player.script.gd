@@ -6,11 +6,18 @@ class_name Player extends CharacterBody2D
 
 
 @export var entity : EntityResource
+var direction : Vector2
+var targetSpeed : Vector2
 
 @export_group("Player Settings")
 var dodgeDirection : Vector2
 var jumpsQuantity : int = 2
-var direction : Vector2
+var isFalling : bool = false
+var isJumping : bool = false
+var isDodging : bool = false
+var isWallSliding : bool = false
+var canWallSlide : bool = true
+var wallSlideTimer : float = 0.3
 
 
 func _ready() -> void:
@@ -21,17 +28,42 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	# Pega os inputs que o player está apertando.
 	direction = Vector2(Input.get_axis("left", "right"), Input.get_axis("up", "down"))
+	targetSpeed = direction * 250
+	
 
-	# Caso esteja encostado no chão, reseta o valor da quantidade de pulos.
-	if is_on_floor():
-		jumpsQuantity = 2
+	MonitoreJumpQuantity()
+	MonitoreWallSlide(_delta)
+
 
 func _physics_process(_delta: float) -> void:
 	# Aplica gravidade.
 	velocity.y -= LocalGameManager.gravity * _delta
 
+	# Aplica uma aceleração horizontal quando nenhum estado está alterando-no.
+	velocity.x = lerp(velocity.x, targetSpeed.x, 10 * _delta)
+
 	# Ativa a física.
 	move_and_slide()
+
+
+# Função para monitorar se o Player está no chão e assim, habilitar os pulos novamente.
+func MonitoreJumpQuantity():
+	# Caso esteja encostado no chão, reseta o valor da quantidade de pulos.
+	if is_on_floor():
+		jumpsQuantity = 2
+
+
+# Função para monitorar se o Player pode fazer um outro Wall Slide.
+func MonitoreWallSlide(_delta: float):
+	# Caso não possa, um timer irá se iniciar.
+	if !canWallSlide:
+		wallSlideTimer -= _delta
+
+		# Quando o timer terminar, habilita o Player  fazer outro Wall Slide e reseta
+		# o timer.
+		if wallSlideTimer <= 0:
+			canWallSlide = true 
+			wallSlideTimer = 0.3
 
 
 func ChangeDirection() -> void:

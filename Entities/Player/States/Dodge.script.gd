@@ -13,7 +13,7 @@ func Enter() -> void:
 	# Altera a velocidade do player para ser 2.5x mais rápido que o movement speed.
 	player.velocity.x = player.dodgeDirection.x * (player.entity.movementSpeed * 2.5)
 
-	player.entity.isDodging = true
+	player.isDodging = true
 
 
 func Update(_delta) -> void:
@@ -29,4 +29,4 @@ func Update(_delta) -> void:
 
 
 func Exit() -> void:
-	player.entity.isDodging = false
+	player.isDodging = false

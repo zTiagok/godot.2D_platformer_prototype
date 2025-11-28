@@ -5,12 +5,16 @@ var player : Player
 func Enter() -> void:
 	player = entity
 
-	player.entity.isFalling = true
+	player.isFalling = true
 
 
 func Update(_delta) -> void:
 	# Habilita alterar a direção do sprite.
 	player.ChangeDirection()
+
+	# Caso o Player pule novamente, vá para o Double Jump.
+	if Input.is_action_just_pressed("jump") && player.jumpsQuantity > 0:
+		stateMachine.ChangeState("DoubleJump")
 	
 
 func PhysicsUpdate(_delta) -> void:
@@ -29,10 +33,10 @@ func PhysicsUpdate(_delta) -> void:
 	else:
 		player.velocity.x = 0
 
-	# Caso o Player pule novamente, vá para o Double Jump.
-	if Input.is_action_just_pressed("jump") && player.jumpsQuantity > 0:
-		stateMachine.ChangeState("DoubleJump")
+	# Caso o player esteja encostando na parede.
+	if player.is_on_wall() && player.canWallSlide:
+		stateMachine.ChangeState("WallSlide")
 
 
 func Exit() -> void:
-	player.entity.isFalling = false
+	player.isFalling = false
