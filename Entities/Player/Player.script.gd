@@ -11,6 +11,7 @@ var direction : Vector2
 @export_group("Player Settings")
 @export var movementAcceleration : float = 12.0
 @export var stopAcceleration : float = 8.0
+@export var wallJumpForce : Vector2 = Vector2(20.0, 150.0)
 var dodgeDirection : Vector2
 var jumpsQuantity : int = 2
 var isFalling : bool = false
@@ -37,10 +38,6 @@ func _process(_delta: float) -> void:
 func _physics_process(_delta: float) -> void:
 	# Aplica gravidade.
 	velocity.y -= LocalGameManager.gravity * _delta
-
-	if velocity.x >= 10 || velocity.x <= -10:
-		print("Top Speed: ", entity.movementSpeed)
-		print("Current Speed: ", velocity.x)
 
 	# Ativa a física.
 	move_and_slide()

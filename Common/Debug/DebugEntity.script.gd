@@ -16,5 +16,7 @@ func _ready() -> void:
 
 
 func OnStateChanged(newState: State) -> void:
+	print("State: ", newState.name)
+	
 	# Altera o nome do state quando o sinal for disparado do "State Machine".
 	stateLabel.text = "State: %s" % newState.name

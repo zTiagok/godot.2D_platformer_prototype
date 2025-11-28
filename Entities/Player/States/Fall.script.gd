@@ -14,7 +14,11 @@ func Update(_delta) -> void:
 
 	# Caso o Player pule novamente, vá para o Double Jump.
 	if Input.is_action_just_pressed("jump") && player.jumpsQuantity > 0:
-		stateMachine.ChangeState("DoubleJump")
+		if player.jumpsQuantity == 1:
+			stateMachine.ChangeState("Jump")
+
+		if player.jumpsQuantity >= 2:	
+			stateMachine.ChangeState("DoubleJump")
 	
 
 func PhysicsUpdate(_delta) -> void:

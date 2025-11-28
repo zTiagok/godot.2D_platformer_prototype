@@ -10,9 +10,8 @@ func Enter() -> void:
 
 	player.isWallSliding = true
 
-	# Incrementa a quantidade de pulos.
-	if player.jumpsQuantity < 2:
-		player.jumpsQuantity += 1
+	# Reseta a quantidade de pulos.
+	player.jumpsQuantity = 2
 
 	
 	# Salva a direção da parede que o Player está encostando.
@@ -28,12 +27,8 @@ func PhysicsUpdate(_delta) -> void:
 			# Aplica o Wall Jump.
 			ApplyWallJump()
  
-			# Altera o estado baseando-se na quantidade de pulos restantes.
-			if player.jumpsQuantity >= 2:
-				stateMachine.ChangeState("DoubleJump")
-			
-			if player.jumpsQuantity >= 1:
-				stateMachine.ChangeState("Jump")
+			# Altera o estado para Jump.
+			stateMachine.ChangeState("Jump")
 	else:
 		stateMachine.ChangeState("Fall")
 
@@ -55,10 +50,11 @@ func ApplyWallJump() -> void:
 	player.canWallSlide = false
 
 	# Pega uma força para pular para fora da parede...
-	var jumpOffForce = Vector2(wallSide.x * horizontalPushOff, player.entity.jumpForce)
+	# var jumpOffForce = Vector2(wallSide.x * horizontalPushOff, player.entity.jumpForce * 1.5)
+	var jumpOffForce = Vector2(wallSide.x * player.wallJumpForce.x, player.wallJumpForce.y)
 
 	# ...e seta essa força na velocity do Player.
-	player.velocity = jumpOffForce
+	player.velocity = lerp(player.velocity, jumpOffForce, player.movementAcceleration * 0.1)
 
 
 # Função utilizada para alterar a direção do sprite do Player em base na

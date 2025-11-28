@@ -10,8 +10,8 @@ func Enter() -> void:
 	# Cria um timer com base no tamanho da animação do "Dodge".
 	timer = player.animationPlayer.current_animation_length
 
-	# Altera a velocidade do player para ser 2.5x mais rápido que o movement speed.
-	player.velocity.x = player.dodgeDirection.x * (player.entity.movementSpeed * 2.5)
+	# Altera a velocidade do Player gradualmente. Vai até 150% da velocidade atual do player.
+	player.velocity.x = lerp(player.velocity.x, player.direction.x * player.entity.movementSpeed * 1.5, player.movementAcceleration * 0.05)
 
 	player.isDodging = true
 
