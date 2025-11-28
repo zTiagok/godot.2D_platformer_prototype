@@ -30,11 +30,11 @@ func Update(_delta) -> void:
 func PhysicsUpdate(_delta) -> void:
 	# Calcula a movimentação na horizontal.
 	if player.direction.x != 0:
-		# "movementSpeed" é multiplicado por 100 apenas para utilizar números menores
-		# no editor.
-		player.velocity.x = player.direction.x * (player.entity.movementSpeed * 100) * _delta
+	# Altera a velocidade do Player gradualmente.
+		player.velocity.x = lerp(player.velocity.x, player.direction.x * player.entity.movementSpeed, player.movementAcceleration * _delta)
 	else:
-		player.velocity.x = 0
+		# Caso não haja movimento, irá diminuir a velocidade gradualmente.
+		player.velocity.x = lerp(player.velocity.x, 0.0, player.stopAcceleration * _delta)
 
 	# Caso o player esteja encostando na parede.
 	if player.is_on_wall() && player.canWallSlide:

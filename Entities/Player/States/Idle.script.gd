@@ -2,6 +2,8 @@ extends State
 
 var player : Player
 
+@export var stopAccelerationSpeed: float = 10.0
+
 func Enter() -> void:
 	player = entity
 
@@ -22,4 +24,4 @@ func PhysicsUpdate(_delta) -> void:
 		stateMachine.ChangeState("Walk")
 	else:
 		# Caso não, aplica uma aceleração para diminuir a velocidade até 0 (Parado).
-		player.velocity.x = lerp(player.velocity.x, 0.0, _delta)
+		player.velocity.x = lerp(player.velocity.x, 0.0, stopAccelerationSpeed * _delta)

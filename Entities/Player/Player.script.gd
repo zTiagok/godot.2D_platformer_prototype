@@ -7,9 +7,10 @@ class_name Player extends CharacterBody2D
 
 @export var entity : EntityResource
 var direction : Vector2
-var targetSpeed : Vector2
 
 @export_group("Player Settings")
+@export var movementAcceleration : float = 12.0
+@export var stopAcceleration : float = 8.0
 var dodgeDirection : Vector2
 var jumpsQuantity : int = 2
 var isFalling : bool = false
@@ -28,9 +29,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	# Pega os inputs que o player está apertando.
 	direction = Vector2(Input.get_axis("left", "right"), Input.get_axis("up", "down"))
-	targetSpeed = direction * 250
 	
-
 	MonitoreJumpQuantity()
 	MonitoreWallSlide(_delta)
 
@@ -39,8 +38,9 @@ func _physics_process(_delta: float) -> void:
 	# Aplica gravidade.
 	velocity.y -= LocalGameManager.gravity * _delta
 
-	# Aplica uma aceleração horizontal quando nenhum estado está alterando-no.
-	velocity.x = lerp(velocity.x, targetSpeed.x, 10 * _delta)
+	if velocity.x >= 10 || velocity.x <= -10:
+		print("Top Speed: ", entity.movementSpeed)
+		print("Current Speed: ", velocity.x)
 
 	# Ativa a física.
 	move_and_slide()

@@ -3,6 +3,8 @@ extends State
 var player : Player
 var wallSide: Vector2
 
+@export var horizontalPushOff: float = 20.0
+
 func Enter() -> void:
 	player = entity
 
@@ -53,7 +55,7 @@ func ApplyWallJump() -> void:
 	player.canWallSlide = false
 
 	# Pega uma força para pular para fora da parede...
-	var jumpOffForce = Vector2(wallSide.x * 80, player.entity.jumpForce)
+	var jumpOffForce = Vector2(wallSide.x * horizontalPushOff, player.entity.jumpForce)
 
 	# ...e seta essa força na velocity do Player.
 	player.velocity = jumpOffForce

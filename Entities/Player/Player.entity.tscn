@@ -459,6 +459,8 @@ _data = {
 collision_mask = 16
 script = ExtResource("1_l7pnr")
 entity = ExtResource("2_v2pd8")
+movementAcceleration = 12.0
+stopAcceleration = 8.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -8)

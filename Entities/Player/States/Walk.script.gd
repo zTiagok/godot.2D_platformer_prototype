@@ -29,7 +29,8 @@ func PhysicsUpdate(_delta) -> void:
 	if player.direction.x != 0:
 		# "movementSpeed" é multiplicado por 100 apenas para utilizar números menores
 		# no editor.
-		player.velocity.x = player.direction.x * (player.entity.movementSpeed * 100) * _delta
+		# player.velocity.x = player.direction.x * (player.entity.movementSpeed * 100) * _delta
+		player.velocity.x = lerp(player.velocity.x, player.direction.x * player.entity.movementSpeed, player.movementAcceleration *  _delta)
 	else:
 		# Caso não aperte nada, volte para o "Idle" state.
 		stateMachine.ChangeState("Idle")
