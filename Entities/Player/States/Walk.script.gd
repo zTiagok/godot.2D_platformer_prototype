@@ -13,6 +13,12 @@ func Update(_delta) -> void:
 	if Input.is_action_just_pressed("jump") && !player.entity.isFalling:
 		stateMachine.ChangeState("Jump")
 
+	# Caso o botão de dodge seja pressionado.
+	if Input.is_action_just_pressed("dodge") && !player.entity.isFalling:
+		# Salva a última direção do player para direcionar o "Dodge" state.
+		player.dodgeDirection = player.direction
+		stateMachine.ChangeState("Dodge")
+
 
 func PhysicsUpdate(_delta) -> void:	
 	# Caso o player não esteja no chão, irá trocar seu state para "Fall".

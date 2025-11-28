@@ -2,10 +2,13 @@
 class_name Player extends CharacterBody2D
 
 @onready var sprite: Sprite2D = $Sprite2D
-@onready var animationPlayer: AnimationPlayer = $AnimationPlayer
+@onready var animationPlayer : AnimationPlayer = $AnimationPlayer
 
 
 @export var entity: EntityResource
+
+@export_group("Player Settings")
+var dodgeDirection: Vector2
 var direction: Vector2
 
 
