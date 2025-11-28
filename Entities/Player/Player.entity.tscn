@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://e4jec4nxvp"]
+[gd_scene load_steps=25 format=3 uid="uid://e4jec4nxvp"]
 
 [ext_resource type="Texture2D" uid="uid://bf6ieodc0ox8e" path="res://Entities/Player/Sprites/Player Idle.png" id="1_j60su"]
 [ext_resource type="Script" uid="uid://c0snpkeo8hipm" path="res://Entities/Player/Player.script.gd" id="1_l7pnr"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://blnq2hq37kj3r" path="res://Entities/Player/States/Jump.script.gd" id="8_yea4m"]
 [ext_resource type="Texture2D" uid="uid://cjsiwdtnufs4b" path="res://Entities/Player/Sprites/Player Jump Up.png" id="9_3auna"]
 [ext_resource type="Script" uid="uid://ccyagk8k4j4lk" path="res://Entities/Player/States/Dodge.script.gd" id="9_efjck"]
+[ext_resource type="Script" uid="uid://dlkp8fm14r05f" path="res://Entities/Player/States/DoubleJump.script.gd" id="9_ndr5u"]
 [ext_resource type="Texture2D" uid="uid://dn0i2xkrgn4eu" path="res://Entities/Player/Sprites/Player Jump Down.png" id="9_uyy4i"]
 [ext_resource type="Texture2D" uid="uid://dunaj1w72xgrv" path="res://Entities/Player/Sprites/Player Double Jump.png" id="14_ndr5u"]
 
@@ -69,6 +70,59 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [Vector2(0, -6)]
+}
+
+[sub_resource type="Animation" id="Animation_efjck"]
+resource_name = "DoubleJump"
+length = 0.2
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_ndr5u")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(0, -8)]
 }
 
 [sub_resource type="Animation" id="Animation_3auna"]
@@ -334,59 +388,6 @@ tracks/3/keys = {
 "values": [Vector2(0, -8)]
 }
 
-[sub_resource type="Animation" id="Animation_efjck"]
-resource_name = "DoubleJump"
-length = 0.2
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0, 2]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("14_ndr5u")]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:hframes")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [3]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2(0, -8)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v2pd8"]
 _data = {
 &"Dodge": SubResource("Animation_as5ja"),
@@ -435,6 +436,10 @@ metadata/_custom_type_script = "uid://dvrnpg6dthq2s"
 
 [node name="Jump" type="Node" parent="StateMachine"]
 script = ExtResource("8_yea4m")
+metadata/_custom_type_script = "uid://dvrnpg6dthq2s"
+
+[node name="DoubleJump" type="Node" parent="StateMachine"]
+script = ExtResource("9_ndr5u")
 metadata/_custom_type_script = "uid://dvrnpg6dthq2s"
 
 [node name="Dodge" type="Node" parent="StateMachine"]

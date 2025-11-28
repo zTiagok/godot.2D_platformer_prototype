@@ -6,6 +6,9 @@ func Enter() -> void:
 	player = entity
 	player.entity.isJumping = true
 
+	# Diminui a quantidade de pulos utilizados.
+	player.jumpsQuantity -= 1
+
 	# Aplica o pulo ao entrar no estado com base na força do pulo.
 	player.velocity.y = -player.entity.jumpForce
 
@@ -18,6 +21,10 @@ func Update(_delta) -> void:
 	# ele altera o state para o "Fall".
 	if player.velocity.y >= 0:
 		stateMachine.ChangeState("Fall")
+
+	# Caso o Player pule novamente, vá para o Double Jump.
+	if Input.is_action_just_pressed("jump") && !player.entity.isFalling && player.jumpsQuantity > 0:
+		stateMachine.ChangeState("DoubleJump")
 
 
 func PhysicsUpdate(_delta) -> void:

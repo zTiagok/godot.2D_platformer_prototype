@@ -8,7 +8,7 @@ func Enter() -> void:
 
 func Update(_delta) -> void:
 	# Caso o botão de pulo seja pressionado.
-	if Input.is_action_just_pressed("jump") && !player.entity.isFalling:
+	if Input.is_action_just_pressed("jump") && !player.entity.isFalling && player.jumpsQuantity > 0:
 		stateMachine.ChangeState("Jump")
 
 

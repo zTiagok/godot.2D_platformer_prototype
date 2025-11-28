@@ -29,6 +29,10 @@ func PhysicsUpdate(_delta) -> void:
 	else:
 		player.velocity.x = 0
 
+	# Caso o Player pule novamente, vá para o Double Jump.
+	if Input.is_action_just_pressed("jump") && player.jumpsQuantity > 0:
+		stateMachine.ChangeState("DoubleJump")
+
 
 func Exit() -> void:
 	player.entity.isFalling = false
