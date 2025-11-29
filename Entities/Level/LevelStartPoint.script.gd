@@ -1,0 +1,1 @@
+class_name LevelStartPoint extends Marker2D

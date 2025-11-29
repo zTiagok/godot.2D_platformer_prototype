@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=4 uid="uid://bvqevee4h4n71"]
+[gd_scene load_steps=9 format=4 uid="uid://bvqevee4h4n71"]
 
 [ext_resource type="PackedScene" uid="uid://e4jec4nxvp" path="res://Entities/Player/Player.entity.tscn" id="1_ty5ve"]
 [ext_resource type="Texture2D" uid="uid://cl2ddow54kqiw" path="res://Stages/Sprites/Tileset.png" id="2_wkhk8"]
 [ext_resource type="PackedScene" uid="uid://cj2yofdag2fx5" path="res://Entities/Environment/Grass/Grass.entity.tscn" id="3_q1s4d"]
+[ext_resource type="PackedScene" uid="uid://dt3d10r0i6sju" path="res://Entities/Level/LevelBounds.entity.tscn" id="4_ocee2"]
+[ext_resource type="PackedScene" uid="uid://ossk8tdyaq3w" path="res://Entities/Level/LevelStartPoint.entity.tscn" id="5_r2csu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q1s4d"]
 texture = ExtResource("2_wkhk8")
@@ -480,6 +482,9 @@ terrain_set_0/terrain_2/name = "Rock"
 terrain_set_0/terrain_2/color = Color(0.572937, 0.35744318, 0.7744774, 1)
 sources/0 = SubResource("TileSetAtlasSource_q1s4d")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r2csu"]
+size = Vector2(2480, 32)
+
 [node name="DebugMap" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_ty5ve")]
@@ -504,3 +509,23 @@ position = Vector2(208, 160)
 
 [node name="Grass4" parent="Environment" instance=ExtResource("3_q1s4d")]
 position = Vector2(320, 112)
+
+[node name="Grass5" parent="Environment" instance=ExtResource("3_q1s4d")]
+position = Vector2(256, 48)
+
+[node name="Grass6" parent="Environment" instance=ExtResource("3_q1s4d")]
+position = Vector2(112, 80)
+
+[node name="Grass7" parent="Environment" instance=ExtResource("3_q1s4d")]
+position = Vector2(128, 80)
+
+[node name="LevelBounds" parent="." instance=ExtResource("4_ocee2")]
+position = Vector2(64, 384)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelBounds"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_r2csu")
+debug_color = Color(1.2032688e-06, 0.28815326, 0.3415704, 0.41960785)
+
+[node name="LevelStartPoint" parent="." instance=ExtResource("5_r2csu")]
+position = Vector2(144, 144)

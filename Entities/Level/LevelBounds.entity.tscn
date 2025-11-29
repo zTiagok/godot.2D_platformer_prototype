@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt3d10r0i6sju"]
+
+[ext_resource type="Script" uid="uid://b0a1rjtge31pu" path="res://Entities/Level/LevelBounds.script.gd" id="1_1h2ac"]
+
+[node name="LevelBounds" type="Area2D"]
+script = ExtResource("1_1h2ac")
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]

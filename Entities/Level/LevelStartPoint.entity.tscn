@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ossk8tdyaq3w"]
+
+[ext_resource type="Script" uid="uid://crw213fvf8wk8" path="res://Entities/Level/LevelStartPoint.script.gd" id="1_anjm0"]
+
+[node name="LevelStartPoint" type="Marker2D"]
+script = ExtResource("1_anjm0")
