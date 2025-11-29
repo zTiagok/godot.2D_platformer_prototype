@@ -86,6 +86,7 @@ dodge={
 2d_physics/layer_3="Player Hitbox/Hurtbox"
 2d_physics/layer_4="Enemy Hitbox/Hurtbox"
 2d_physics/layer_5="Walls"
+2d_physics/layer_6="Environment"
 
 [rendering]
 

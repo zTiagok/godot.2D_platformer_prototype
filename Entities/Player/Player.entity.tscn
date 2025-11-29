@@ -1,9 +1,10 @@
-[gd_scene load_steps=30 format=3 uid="uid://e4jec4nxvp"]
+[gd_scene load_steps=32 format=3 uid="uid://e4jec4nxvp"]
 
 [ext_resource type="Texture2D" uid="uid://bf6ieodc0ox8e" path="res://Entities/Player/Sprites/Player Idle.png" id="1_j60su"]
 [ext_resource type="Script" uid="uid://c0snpkeo8hipm" path="res://Entities/Player/Player.script.gd" id="1_l7pnr"]
 [ext_resource type="Texture2D" uid="uid://dw23spa2x5xd5" path="res://Entities/Player/Sprites/Player Walk.png" id="2_gqoey"]
 [ext_resource type="Resource" uid="uid://skdnkod7sfam" path="res://Entities/Player/Player.resource.tres" id="2_v2pd8"]
+[ext_resource type="Script" uid="uid://dkcwovoqnp3jh" path="res://Entities/Player/EnvironmentBox.script.gd" id="4_kbb50"]
 [ext_resource type="Script" uid="uid://ura5o2vijm3j" path="res://Common/StateMachine/StateMachine.script.gd" id="5_c3sfg"]
 [ext_resource type="Script" uid="uid://bklgeqpliery" path="res://Entities/Player/States/Idle.script.gd" id="6_0p5nl"]
 [ext_resource type="Script" uid="uid://baw7grbw8htpm" path="res://Entities/Player/States/Fall.script.gd" id="7_ia10a"]
@@ -22,6 +23,9 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c3sfg"]
 radius = 4.0
 height = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jajrs"]
+radius = 4.0
 
 [sub_resource type="Animation" id="Animation_as5ja"]
 resource_name = "Dodge"
@@ -530,6 +534,18 @@ editor_draw_drag_margin = true
 position = Vector2(-1, -6)
 shape = SubResource("CapsuleShape2D_c3sfg")
 
+[node name="Interactions" type="Node2D" parent="."]
+
+[node name="EnvironmentBox" type="Area2D" parent="Interactions"]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("4_kbb50")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactions/EnvironmentBox"]
+position = Vector2(-1, -4)
+shape = SubResource("CircleShape2D_jajrs")
+debug_color = Color(0.48765057, 0.43462953, 1, 0.41960785)
+
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
 script = ExtResource("5_c3sfg")
 initialState = NodePath("Idle")
@@ -575,3 +591,5 @@ libraries = {
 &"": SubResource("AnimationLibrary_v2pd8")
 }
 autoplay = "Idle"
+
+[connection signal="area_entered" from="Interactions/EnvironmentBox" to="Interactions/EnvironmentBox" method="OnAreaEntered"]
