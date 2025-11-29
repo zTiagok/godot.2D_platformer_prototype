@@ -2,10 +2,15 @@ extends State
 
 var player : Player
 var wallSide : Vector2
+var doubleJumpTimer: float;
 
 func Enter() -> void:
 	player = entity
 	player.isJumping = true
+
+	# Adiciona o timer para que o state não seja trocado para o "Double Jump" no
+	# mesmo frame que entraria no "Wall Jump".
+	doubleJumpTimer = 0.1;
 
 	# Player fica impossibilitado de encostar na parede novamente.
 	player.canWallSlide = false
@@ -28,13 +33,15 @@ func Enter() -> void:
 
 
 func Update(_delta) -> void:
+	doubleJumpTimer -= _delta
+
 	# Se a velocidade vertical do player passar do limiar de 0 (No caso, está caindo),
 	# ele altera o state para o "Fall".
 	if player.canWallSlide:
 		stateMachine.ChangeState("Fall")
 
 	# Caso o Player pule novamente, vá para o Double Jump.
-	if Input.is_action_just_pressed("jump") && !player.isFalling && player.jumpsQuantity > 0:
+	if Input.is_action_just_pressed("jump") && player.jumpsQuantity > 0 && !player.canWallSlide && doubleJumpTimer <= 0:
 		stateMachine.ChangeState("DoubleJump")
 
 func PhysicsUpdate(_delta) -> void:

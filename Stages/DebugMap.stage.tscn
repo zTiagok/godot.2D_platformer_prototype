@@ -482,7 +482,7 @@ terrain_set_0/terrain_2/color = Color(0.572937, 0.35744318, 0.7744774, 1)
 sources/0 = SubResource("TileSetAtlasSource_q1s4d")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ocee2"]
-size = Vector2(1280, 20)
+size = Vector2(10016, 20)
 
 [node name="DebugMap" type="Node2D"]
 
