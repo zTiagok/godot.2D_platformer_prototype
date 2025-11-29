@@ -1,14 +1,8 @@
 class_name LevelBounds extends Area2D
 
-var startingPoint: Marker2D
-
-func _ready() -> void:
-	startingPoint = get_parent().find_child("LevelStartPoint")
-
-	assert(startingPoint, "No Starting Point was set for this level.")
-
+@onready var teleportingPoint: Marker2D = $TeleportingPoint 
 
 func OnBodyEntered(body: Node2D) -> void:
 	if body is Player:
-		body.position = startingPoint.position
-		print("OK")
+		# Verifica se a colisão é o Player e o teleporta ao ponto inicial.
+		body.global_position = teleportingPoint.global_position

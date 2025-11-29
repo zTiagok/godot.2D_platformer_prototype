@@ -3,6 +3,10 @@
 [ext_resource type="Script" uid="uid://b0a1rjtge31pu" path="res://Entities/Level/LevelBounds.script.gd" id="1_1h2ac"]
 
 [node name="LevelBounds" type="Area2D"]
+collision_layer = 0
+monitorable = false
 script = ExtResource("1_1h2ac")
+
+[node name="TeleportingPoint" type="Marker2D" parent="."]
 
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
