@@ -20,13 +20,23 @@ func Enter() -> void:
 	# Flipa o sprite do Player baseando-se na direção da parede.
 	ChangePlayerSide(wallSide)
 
-
 func PhysicsUpdate(_delta) -> void:
+	# Se o Player ainda estiver encostando na parede...
+	print(player.is_on_wall())
 	if player.is_on_wall():
+
+		# Caso o Player pule.
 		if (Input.is_action_just_pressed("jump")):
 
 			# Altera o estado para WallJump.
 			stateMachine.ChangeState("WallJump")
+
+		# Caso o Player aperte a direção ao contrário da parede.
+		if player.direction.x == player.DetectWallSide().x:
+			# Descola o Player da parede.
+			player.velocity.x = lerp(player.velocity.x, (player.direction.x * player.entity.movementSpeed), player.movementAcceleration * _delta)
+
+	# Caso não esteja mais encostando na parede.
 	else:
 		stateMachine.ChangeState("Fall")
 

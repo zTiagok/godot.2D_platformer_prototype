@@ -36,8 +36,14 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	# Aplica gravidade.
-	velocity.y -= LocalGameManager.gravity * _delta
+	# Aplica gravidade...
+	if !isWallSliding:
+		# Caso não esteja no "Wall Slide", a gravidade é aplicada normalmente.
+		velocity.y -= LocalGameManager.gravity * _delta
+
+	else:
+		# Caso esteja, ela será diminuida para dar uma melhor sensação ao state.
+		velocity.y -= LocalGameManager.gravity * _delta * 0.75 
 
 	# Ativa a física.
 	move_and_slide()
