@@ -1,15 +1,16 @@
 @icon("res://Entities/Player/Icons/person-blue.svg")
 class_name Player extends CharacterBody2D
 
+
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var animationPlayer : AnimationPlayer = $AnimationPlayer
 @onready var wallRaycast : Array[RayCast2D] = [$Raycast/WallRaycastTop, $Raycast/WallRaycastBottom]
+@onready var hitbox : Hitbox = $Interactions/Hitbox
+@onready var hurtbox : Hurtbox = $Interactions/Hurtbox
 
-
-@export var entity : EntityResource
-var direction : Vector2
 
 @export_group("Player Settings")
+@export var entity : EntityResource
 @export var movementAcceleration : float = 12.0
 @export var stopAcceleration : float = 8.0
 @export var wallJumpForce : Vector2 = Vector2(20.0, 150.0)
@@ -21,6 +22,7 @@ var isDodging : bool = false
 var isWallSliding : bool = false
 var canWallSlide : bool = true
 var wallSlideTimer : float = 0.3
+var direction : Vector2
 
 
 func _ready() -> void:
@@ -49,13 +51,11 @@ func _physics_process(_delta: float) -> void:
 	# Ativa a física.
 	move_and_slide()
 
-
 # Função para monitorar se o Player está no chão e assim, habilitar os pulos novamente.
 func MonitoreJumpQuantity() -> void:
 	# Caso esteja encostado no chão, reseta o valor da quantidade de pulos.
 	if is_on_floor():
 		jumpsQuantity = 2
-
 
 # Função para monitorar se o Player pode fazer um outro Wall Slide.
 func MonitoreWallSlide(_delta: float) -> void:
@@ -91,9 +91,8 @@ func DetectWallSide() -> Vector2:
 	else:
 		return Vector2.ZERO
 
-
+# Função utilizada para alterar a direção do sprite dependendo da direção do player.
 func ChangeDirection() -> void:
-	# Altera a direção do sprite dependendo da direção do player.
 	if direction.x > 0:
 		sprite.scale.x = 1
 

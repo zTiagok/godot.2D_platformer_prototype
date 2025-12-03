@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://e4jec4nxvp"]
+[gd_scene load_steps=38 format=3 uid="uid://e4jec4nxvp"]
 
 [ext_resource type="Texture2D" uid="uid://bf6ieodc0ox8e" path="res://Entities/Player/Sprites/Player Idle.png" id="1_j60su"]
 [ext_resource type="Script" uid="uid://c0snpkeo8hipm" path="res://Entities/Player/Player.script.gd" id="1_l7pnr"]
@@ -6,7 +6,9 @@
 [ext_resource type="Resource" uid="uid://skdnkod7sfam" path="res://Entities/Player/Player.resource.tres" id="2_v2pd8"]
 [ext_resource type="Script" uid="uid://dkcwovoqnp3jh" path="res://Entities/Player/EnvironmentBox.script.gd" id="4_kbb50"]
 [ext_resource type="Script" uid="uid://ura5o2vijm3j" path="res://Common/StateMachine/StateMachine.script.gd" id="5_c3sfg"]
+[ext_resource type="PackedScene" uid="uid://bmnc34o01xty2" path="res://Common/Hurtbox.common.tscn" id="5_jajrs"]
 [ext_resource type="Script" uid="uid://bklgeqpliery" path="res://Entities/Player/States/Idle.script.gd" id="6_0p5nl"]
+[ext_resource type="PackedScene" uid="uid://dsnt8wd6vem55" path="res://Common/Hitbox.common.tscn" id="6_plibo"]
 [ext_resource type="Script" uid="uid://baw7grbw8htpm" path="res://Entities/Player/States/Fall.script.gd" id="7_ia10a"]
 [ext_resource type="Script" uid="uid://1mvsrcucqgmn" path="res://Entities/Player/States/Walk.script.gd" id="7_xqd75"]
 [ext_resource type="PackedScene" uid="uid://cyuh4ujowxdpt" path="res://Common/Debug/DebugEntity.debug.tscn" id="8_rt0of"]
@@ -19,6 +21,7 @@
 [ext_resource type="Script" uid="uid://blljp5yioaqph" path="res://Entities/Player/States/WallJump.script.gd" id="12_35vsa"]
 [ext_resource type="Texture2D" uid="uid://dunaj1w72xgrv" path="res://Entities/Player/Sprites/Player Double Jump.png" id="14_ndr5u"]
 [ext_resource type="Texture2D" uid="uid://dv37x8d0vb5k8" path="res://Entities/Player/Sprites/Player Wall Slide.png" id="16_as5ja"]
+[ext_resource type="Texture2D" uid="uid://c8tdfmtacpy61" path="res://Entities/Player/Sprites/Player Sword Attack.png" id="22_f1ukk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c3sfg"]
 radius = 4.0
@@ -26,6 +29,12 @@ height = 12.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jajrs"]
 radius = 4.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plibo"]
+size = Vector2(7, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f1ukk"]
+size = Vector2(25, 11)
 
 [sub_resource type="Animation" id="Animation_as5ja"]
 resource_name = "Dodge"
@@ -525,8 +534,61 @@ tracks/3/keys = {
 "values": [Vector2(-1, -8)]
 }
 
+[sub_resource type="Animation" id="Animation_ctd2l"]
+resource_name = "Attack"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("22_f1ukk"), ExtResource("22_f1ukk")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(9, -8), Vector2(9, -8)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v2pd8"]
 _data = {
+&"Attack": SubResource("Animation_ctd2l"),
 &"Dodge": SubResource("Animation_as5ja"),
 &"DoubleJump": SubResource("Animation_efjck"),
 &"Fall": SubResource("Animation_3auna"),
@@ -555,13 +617,14 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-1, -6)
 shape = SubResource("CapsuleShape2D_c3sfg")
 
 [node name="Interactions" type="Node2D" parent="."]
-visible = false
 
 [node name="EnvironmentBox" type="Area2D" parent="Interactions"]
+visible = false
 collision_layer = 0
 collision_mask = 32
 script = ExtResource("4_kbb50")
@@ -571,7 +634,24 @@ position = Vector2(-1, -4)
 shape = SubResource("CircleShape2D_jajrs")
 debug_color = Color(0.48765057, 0.43462953, 1, 0.41960785)
 
+[node name="Hurtbox" parent="Interactions" instance=ExtResource("5_jajrs")]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactions/Hurtbox"]
+position = Vector2(-0.5, -5.5)
+shape = SubResource("RectangleShape2D_plibo")
+debug_color = Color(1.558, 0.043, 0.089, 0.196)
+
+[node name="Hitbox" parent="Interactions" instance=ExtResource("6_plibo")]
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactions/Hitbox"]
+position = Vector2(12.5, -5.5)
+shape = SubResource("RectangleShape2D_f1ukk")
+debug_color = Color(0, 0.64705884, 0.2627451, 0.2509804)
+
 [node name="Raycast" type="Node2D" parent="."]
+visible = false
 
 [node name="WallRaycastTop" type="RayCast2D" parent="Raycast"]
 position = Vector2(4, -11)
