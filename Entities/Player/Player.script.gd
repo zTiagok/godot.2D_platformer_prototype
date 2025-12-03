@@ -3,6 +3,7 @@ class_name Player extends CharacterBody2D
 
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var animationPlayer : AnimationPlayer = $AnimationPlayer
+@onready var wallRayscast : Array[RayCast2D] = [$Raycast/WallRaycastTop, $Raycast/WallRaycastBottom]
 
 
 @export var entity : EntityResource
@@ -78,9 +79,11 @@ func DetectWallSide() -> Vector2:
 		# Pega a primeira colisão detectada no Player.
 		currentCollision = get_slide_collision(collision)
 
-	# Retorna o vetor do lado no qual está sendo encostado.
-	return currentCollision.get_normal()
-
+	if currentCollision:
+		# Retorna o vetor do lado no qual está sendo encostado.
+		return currentCollision.get_normal()
+	else:
+		return Vector2.ZERO
 
 func ChangeDirection() -> void:
 	# Altera a direção do sprite dependendo da direção do player.

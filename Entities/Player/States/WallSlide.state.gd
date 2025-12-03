@@ -22,9 +22,7 @@ func Enter() -> void:
 
 func PhysicsUpdate(_delta) -> void:
 	# Se o Player ainda estiver encostando na parede...
-	print(player.is_on_wall())
 	if player.is_on_wall():
-
 		# Caso o Player pule.
 		if (Input.is_action_just_pressed("jump")):
 
@@ -38,13 +36,22 @@ func PhysicsUpdate(_delta) -> void:
 
 	# Caso não esteja mais encostando na parede.
 	else:
-		stateMachine.ChangeState("Fall")
+		# Adiciona uma camada de verificação a mais utilizando os Raycasts.
+		# Caso os Raycasts que detectam colisão com a parede não estejam colidindo,
+		# troca para o "Fall" state.
+		if !IsWallRaycastColliding():
+			stateMachine.ChangeState("Fall")
 
 # Função utilizada para alterar a direção do sprite do Player em base na
 # direção que a parede está, utilizando a função "DetectWallSide"
 func ChangePlayerSide(wallDirection: Vector2) -> void:
 	player.sprite.scale.x = wallDirection.x
 
+func IsWallRaycastColliding() -> bool:
+	for raycast in player.wallRayscast:
+		return raycast.is_colliding()
+
+	return false
 
 func Exit() -> void:
 	player.isWallSliding = false
