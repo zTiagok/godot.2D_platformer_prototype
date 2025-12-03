@@ -3,7 +3,7 @@ class_name Player extends CharacterBody2D
 
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var animationPlayer : AnimationPlayer = $AnimationPlayer
-@onready var wallRayscast : Array[RayCast2D] = [$Raycast/WallRaycastTop, $Raycast/WallRaycastBottom]
+@onready var wallRaycast : Array[RayCast2D] = [$Raycast/WallRaycastTop, $Raycast/WallRaycastBottom]
 
 
 @export var entity : EntityResource
@@ -51,14 +51,14 @@ func _physics_process(_delta: float) -> void:
 
 
 # Função para monitorar se o Player está no chão e assim, habilitar os pulos novamente.
-func MonitoreJumpQuantity():
+func MonitoreJumpQuantity() -> void:
 	# Caso esteja encostado no chão, reseta o valor da quantidade de pulos.
 	if is_on_floor():
 		jumpsQuantity = 2
 
 
 # Função para monitorar se o Player pode fazer um outro Wall Slide.
-func MonitoreWallSlide(_delta: float):
+func MonitoreWallSlide(_delta: float) -> void:
 	# Caso não possa, um timer irá se iniciar.
 	if !canWallSlide:
 		wallSlideTimer -= _delta
@@ -69,6 +69,12 @@ func MonitoreWallSlide(_delta: float):
 			canWallSlide = true 
 			wallSlideTimer = 0.3
 
+# Função utilizada para retornar se o Raycast de colisão com a parede está funcionando.
+func IsWallRaycastColliding() -> bool:
+	for raycast in wallRaycast:
+		return raycast.is_colliding()
+
+	return false
 
 # Função utilizada para saber de qual lado da parede o Player está encostado.
 func DetectWallSide() -> Vector2:
@@ -84,6 +90,7 @@ func DetectWallSide() -> Vector2:
 		return currentCollision.get_normal()
 	else:
 		return Vector2.ZERO
+
 
 func ChangeDirection() -> void:
 	# Altera a direção do sprite dependendo da direção do player.

@@ -39,19 +39,13 @@ func PhysicsUpdate(_delta) -> void:
 		# Adiciona uma camada de verificação a mais utilizando os Raycasts.
 		# Caso os Raycasts que detectam colisão com a parede não estejam colidindo,
 		# troca para o "Fall" state.
-		if !IsWallRaycastColliding():
+		if !player.IsWallRaycastColliding():
 			stateMachine.ChangeState("Fall")
 
 # Função utilizada para alterar a direção do sprite do Player em base na
 # direção que a parede está, utilizando a função "DetectWallSide"
 func ChangePlayerSide(wallDirection: Vector2) -> void:
 	player.sprite.scale.x = wallDirection.x
-
-func IsWallRaycastColliding() -> bool:
-	for raycast in player.wallRayscast:
-		return raycast.is_colliding()
-
-	return false
 
 func Exit() -> void:
 	player.isWallSliding = false
